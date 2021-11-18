@@ -26,3 +26,5 @@ Route::get('/livros/{name}', 'PropertyController@show'); // Mostrar individualme
 Route::get('/livros/editar/{name}','PropertyController@edit'); // Traz o formulário de editar um registro de livro. Está na views > property > edit.php
 Route::put('/livros/update/{name}','PropertyController@update'); // Executar o comando update para atualizar dentro do banco as informações que foram modificadas.
 // O método é PUT porque se trata de uma edição.
+
+Route::get('/livros/remover/{name}','PropertyController@destroy'); // Remove o registro dentro do banco de dados.

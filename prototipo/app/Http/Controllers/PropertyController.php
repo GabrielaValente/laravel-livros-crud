@@ -64,6 +64,7 @@ class PropertyController extends Controller
     }
 
     //---------------------------------------------------------------------------------------------------------------------------//
+
     public function update (Request $request, $id) // Função para atualizar/UPDATE as informações editadas/modificadas no banco de dados.
     {
 
@@ -86,6 +87,20 @@ class PropertyController extends Controller
         return redirect()->action('PropertyController@index');
 
     }
+
+//---------------------------------------------------------------------------------------------------------------------------//
+
+    public function destroy ($name) // Função para remover registros do banco de dados.
+    {
+        $property = DB::select(' SELECT * FROM properties where name = ?', [$name]);
+
+        if(!empty($property)) { // Se houver registro, delete:
+            DB::delete("DELETE FROM properties WHERE name = ?", [$name]);
+        }
+
+        return redirect()->action('PropertyController@index');
+    }
+
 //---------------------------------------------------------------------------------------------------------------------------//
     private function setName($title) // URL AMIGÁVEL
     {
