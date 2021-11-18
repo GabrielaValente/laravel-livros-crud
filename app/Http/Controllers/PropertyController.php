@@ -13,8 +13,8 @@ class PropertyController extends Controller
 
         return view('property/index')->with("properties", $properties);
     }
-
-    public function show($name)
+//---------------------------------------------------------------------------------------------------------------------------//
+    public function show($name) //Funçao para mostrar as informações do livro com mais detalhes show.php.
     {
         $property = DB::select(' SELECT * FROM properties where name = ?', [$name]);
 
@@ -25,8 +25,8 @@ class PropertyController extends Controller
             return redirect()->action('PropertyController@index');
         }
     }
-
-    public function create() //Função para criar um novo registro de cadastro de livros.
+//---------------------------------------------------------------------------------------------------------------------------//
+    public function create() //Função para CRIAR um novo registro de cadastro de livros.
     {
         return view('property/create');
     }
@@ -44,12 +44,49 @@ class PropertyController extends Controller
         ];
 
         DB::insert("INSERT INTO properties (title, name, description, category, price)VALUES
-                    (?, ?, ?, ?, ?)", $property); //Recebendo 4 parâmetros, cada interrogação é um parâmetro.
+                    (?, ?, ?, ?, ?)", $property);
 
 
         return redirect()->action("PropertyController@index");
     }
 
+//---------------------------------------------------------------------------------------------------------------------------//
+
+    public function edit ($name) // Função para EDITAR o livro/informações do livro, está em edit.php
+    {
+        $property = DB::select(' SELECT * FROM properties where name = ?', [$name]);
+
+        if (!empty($property)) {
+            return view('property/edit')->with('property', $property);
+        } else {
+            return redirect()->action('PropertyController@index');
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------//
+    public function update (Request $request, $id) // Função para atualizar/UPDATE as informações editadas/modificadas no banco de dados.
+    {
+
+        $propertySlug = $this->setName($request->title);
+
+
+        $property = [
+            $request->title,
+            $propertySlug,
+            $request->description,
+            $request->category,
+            $request->price,
+            $id
+        ];
+
+        DB::update("UPDATE properties SET title = ?, name = ?, description = ?, category = ?, price = ?
+                    WHERE id = ?", $property);
+
+
+        return redirect()->action('PropertyController@index');
+
+    }
+//---------------------------------------------------------------------------------------------------------------------------//
     private function setName($title) // URL AMIGÁVEL
     {
         $propertySlug = str_slug($title); // str_slug faz a conversão dos carateres especiais contidos no título, verificar maíuscula
@@ -74,3 +111,6 @@ class PropertyController extends Controller
         return $propertySlug;
     }
 }
+
+
+
