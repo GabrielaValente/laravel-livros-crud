@@ -1,3 +1,5 @@
+<?php include 'head.php'; ?> <!-- Importando CSS e bootstrap da head.php  -->
+
 <h1>Página Single</h1>
 
 <?php

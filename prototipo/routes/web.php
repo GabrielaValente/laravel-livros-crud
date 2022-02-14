@@ -28,3 +28,7 @@ Route::put('/livros/update/{name}','PropertyController@update'); // Executar o c
 // O método é PUT porque se trata de uma edição.
 
 Route::get('/livros/remover/{name}','PropertyController@destroy'); // Remove o registro dentro do banco de dados.
+
+Route::get('/token', function () {
+    return csrf_token();
+});

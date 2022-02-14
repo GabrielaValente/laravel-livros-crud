@@ -1,5 +1,6 @@
-<h1>Formulário de Cadastro :: Livros </h1>
+<?php include 'head.php'; ?> <!-- Importando CSS e bootstrap da head.php  -->
 
+<h1>Formulário de Cadastro :: Livros </h1>
 
 <form action="<?= url("/livros/store"); ?>"method="post">
 
@@ -26,7 +27,4 @@
 
 
     <button type="submit">Cadastrar livro</button>
-
-
-
  </form>
